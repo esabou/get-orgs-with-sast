@@ -1,7 +1,3 @@
-# get-orgs-with-sast
-Gets all orgs with SAST status
-
-
 # Snyk Script for Managing SAST Settings
 This script interacts with the Snyk API to retrieve and update the Snyk Code (SAST) settings for multiple organizations. The script checks the current SAST settings, asks whether to update them, and provides an option to disable Snyk Code (SAST) settings for organizations where it is enabled.
 
