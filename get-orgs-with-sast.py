@@ -11,8 +11,18 @@ SNYK_TOKEN = os.getenv("SNYK_TOKEN")
 if not SNYK_TOKEN:
     raise ValueError("SNYK_TOKEN environment variable is not set!")
 
-def get_organizations():
-    url = f"{BASE_URL}/orgs?version={API_VERSION}"
+
+def get_group_id():
+    """Prompt the user to enter a Group ID."""
+    group_id = input("Enter the Group ID you want to check: ").strip()
+    if not group_id:
+        print("Error: Group ID cannot be empty.")
+        exit(1)
+    return group_id
+
+
+def get_organizations(group_id):
+    url = f"{BASE_URL}/groups/{group_id}/orgs?version={API_VERSION}"
     headers = {
         "Authorization": f"token {SNYK_TOKEN}",
         "Content-Type": "application/vnd.api+json",
@@ -20,7 +30,7 @@ def get_organizations():
     }
 
     response = requests.get(url, headers=headers)
-    
+
     if response.status_code == 200:
         data = response.json().get("data", [])
         org_ids = [{"id": org["id"], "name": org["attributes"]["name"]} for org in data]
@@ -28,6 +38,7 @@ def get_organizations():
     else:
         print(f"Error: {response.status_code}, {response.text}")
         return None
+
 
 def get_sast_enabled(org_id):
     url = f"{BASE_URL}/orgs/{org_id}/settings/sast?version={API_VERSION}"
@@ -47,6 +58,7 @@ def get_sast_enabled(org_id):
         print(f"Error: {response.status_code}, {response.text}")
         return None
 
+
 def update_sast_setting(org_id):
     url = f"{BASE_URL}/orgs/{org_id}/settings/sast?version={API_VERSION}"
     headers = {
@@ -58,7 +70,7 @@ def update_sast_setting(org_id):
     payload = {
         "data": {
             "id": org_id,
-            "type": "string",
+            "type": "sast_settings",
             "attributes": {
                 "sast_enabled": False
             }
@@ -67,17 +79,17 @@ def update_sast_setting(org_id):
 
     response = requests.patch(url, headers=headers, json=payload)
 
-    if response.status_code == 200:
-        print(f"Snyk Code is now disabled for org_id {org_id}")
-    elif response.status_code == 201:
+    if response.status_code in [200, 201]:
         print(f"Snyk Code is now disabled for org_id {org_id}")
     else:
         print(f"Error: {response.status_code}, {response.text}")
 
 
 def main():
+    group_id = get_group_id()
+
     # Get all organization IDs and names
-    orgs = get_organizations()
+    orgs = get_organizations(group_id)
 
     if orgs:
         org_to_update = []  # List to store orgs with sast_enabled = True
@@ -107,6 +119,7 @@ def main():
             print("No organizations found with SAST enabled.")
     else:
         print("Failed to retrieve organizations.")
+
 
 if __name__ == "__main__":
     main()
