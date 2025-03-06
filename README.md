@@ -28,6 +28,3 @@ The script will:
 - List all organizations in the specified Snyk group.
 - Display the current SAST settings for each organization.
 - Ask if you want to disable Snyk Code (SAST) for organizations with SAST enabled.
-
-<img width="979" alt="SCR-20250306-ofwm" src="https://github.com/user-attachments/assets/e250719e-8f9b-4a14-bd82-9fb7c221f633" />
-
