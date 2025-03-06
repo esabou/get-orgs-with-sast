@@ -2,9 +2,9 @@
 This script interacts with the Snyk API to retrieve and update the Snyk Code (SAST) settings for multiple organizations. The script checks the current SAST settings, asks whether to update them, and provides an option to disable Snyk Code (SAST) settings for organizations where it is enabled.
 
 # Requirements
-Python 3.6 or higher
-requests Python library
-Snyk API Token (SNYK_TOKEN)
+- Python 3.6 or higher
+- requests Python library
+- Snyk API Token (SNYK_TOKEN)
 
 # Installation
 1. Clone the repository
@@ -21,7 +21,7 @@ export SNYK_TOKEN=your_snyk_token
 Running the script locally
 1. Ensure that you have set your SNYK_TOKEN environment variable
 2. Run the script:
-python snyk_script.py
+python get-orgs-with-sast.py
 
 The script will:
 
