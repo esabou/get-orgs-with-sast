@@ -8,10 +8,10 @@ This script interacts with the Snyk API to retrieve and update the Snyk Code (SA
 
 ## Installation
 1. Clone the repository
-> git clone 
+> git clone https://github.com/esabou/get-orgs-with-sast.git
 
 2. Install dependencies
-pip install -r requirements.txt
+> pip install -r requirements.txt
 
 ## Setup
 1. Get a Snyk API Token
