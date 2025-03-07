@@ -23,6 +23,8 @@ Running the script locally
 1. Ensure that you have set your SNYK_TOKEN environment variable
 2. Run the script:
 > python get-orgs-with-sast.py
+3. Provide the Group ID when prompted
+4. The script will identify all Organisations under that Group and their current SAST setting
 
 ## The script will:
 
